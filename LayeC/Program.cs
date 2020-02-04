@@ -6,7 +6,7 @@ namespace LayeC
 {
     static class Program
     {
-        const string TestProgram = "void main(string[] args) { var thing = \"test string\" } \\\\ test comment\n int add(int a, int b) { return a + b; } add(16$CAFEBABE, 8$7777);";
+        const string TestProgram = "void main(string[] args) { var thing = \"test string\"; } \\\\ test comment\n int add(int a, int b) { return a + b; } add(16$CAFEBABE, 8$7777);";
 
         static void Main(string[] args)
         {
