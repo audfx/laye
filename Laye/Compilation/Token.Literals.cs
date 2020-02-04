@@ -11,17 +11,6 @@ namespace Laye.Compilation
         }
     }
 
-    public sealed class BoolToken : TokenLiteral
-    {
-        public readonly bool Value;
-
-        public BoolToken((int, int) location, bool value)
-            : base(location)
-        {
-            Value = value;
-        }
-    }
-
     public sealed class IntegerToken : TokenLiteral
     {
         public readonly BigInteger Value;
