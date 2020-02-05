@@ -21,6 +21,9 @@ namespace Laye.Syntax.Abstract
         {
             Integer = itok;
         }
+
+        public override void Accept(AbstractSyntaxVisitor visitor) => visitor.Visit(this);
+        public override T Accept<T>(AbstractSyntaxVisitor<T> visitor) => visitor.Visit(this);
     }
 
     public class ANodeFloatLiteral : ANodeExpression
@@ -32,6 +35,9 @@ namespace Laye.Syntax.Abstract
         {
             Float = ftok;
         }
+
+        public override void Accept(AbstractSyntaxVisitor visitor) => visitor.Visit(this);
+        public override T Accept<T>(AbstractSyntaxVisitor<T> visitor) => visitor.Visit(this);
     }
 
     public class ANodeStringLiteral : ANodeExpression
@@ -43,6 +49,9 @@ namespace Laye.Syntax.Abstract
         {
             String = stok;
         }
+
+        public override void Accept(AbstractSyntaxVisitor visitor) => visitor.Visit(this);
+        public override T Accept<T>(AbstractSyntaxVisitor<T> visitor) => visitor.Visit(this);
     }
 
     public class ANodeBoolLiteral : ANodeExpression
@@ -54,6 +63,9 @@ namespace Laye.Syntax.Abstract
         {
             Bool = kwtok;
         }
+
+        public override void Accept(AbstractSyntaxVisitor visitor) => visitor.Visit(this);
+        public override T Accept<T>(AbstractSyntaxVisitor<T> visitor) => visitor.Visit(this);
     }
 
     public class ANodeNullLiteral : ANodeExpression
@@ -65,6 +77,9 @@ namespace Laye.Syntax.Abstract
         {
             Null = kwtok;
         }
+
+        public override void Accept(AbstractSyntaxVisitor visitor) => visitor.Visit(this);
+        public override T Accept<T>(AbstractSyntaxVisitor<T> visitor) => visitor.Visit(this);
     }
 
     public class ANodeIdentifierExpression : ANodeExpression
@@ -76,5 +91,8 @@ namespace Laye.Syntax.Abstract
         {
             Identifier = ident;
         }
+
+        public override void Accept(AbstractSyntaxVisitor visitor) => visitor.Visit(this);
+        public override T Accept<T>(AbstractSyntaxVisitor<T> visitor) => visitor.Visit(this);
     }
 }

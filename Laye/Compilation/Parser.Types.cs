@@ -32,9 +32,9 @@ namespace Laye.Compilation
 
         private bool IsKeywordBuiltInType(KeywordKind kind) => GetBuiltInTypeFromKind(kind) != BuiltInType.Invalid;
 
-        private ANodeType? AParseType(Stack<TokenListOperatorSplitAction>? actionStack, out Stack<TokenListOperatorSplitAction> actionsTaken)
+        private ANodeType? AParseType(Stack<OpSplitAction>? actionStack, out Stack<OpSplitAction> actionsTaken)
         {
-            var stack = actionStack ?? new Stack<TokenListOperatorSplitAction>();
+            var stack = actionStack ?? new Stack<OpSplitAction>();
 
             int failMark = m_tokenIndex;
             (int, int) location = CurrentLocation;
@@ -52,10 +52,11 @@ namespace Laye.Compilation
 
                 var containedType = AParseType(stack, out actionsTaken);
                 if (containedType == null)
-                    undoAction.Undo(); // will undo the split, but won't itself reset the token position. We do that later ourselves, it doesn't manage it for us.
+                    undoAction?.Undo(); // will undo the split, but won't itself reset the token position. We do that later ourselves, it doesn't manage it for us.
                 else
                 {
-                    actionsTaken.Push(undoAction); // now that we've commited to the action, add it to our action stack.
+                    if (undoAction != null)
+                        actionsTaken.Push(undoAction); // now that we've commited to the action, add it to our action stack.
                     typeNode = new ANodePointerType(location, containedType);
                 }
             }
@@ -65,7 +66,7 @@ namespace Laye.Compilation
                 {
                     Advance();
 
-                    var elementStack = new Stack<TokenListOperatorSplitAction>();
+                    var elementStack = new Stack<OpSplitAction>();
                     var elementTypes = new List<ANodeType>();
                     var elementNames = new List<IdentifierToken?>();
 
@@ -120,7 +121,7 @@ namespace Laye.Compilation
                     }
                     else
                     {
-                        var elementStack = new Stack<TokenListOperatorSplitAction>();
+                        var elementStack = new Stack<OpSplitAction>();
                         var dimensionLengths = new List<AbstractNode?>();
 
                         bool parsed = true;

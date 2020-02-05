@@ -7,7 +7,7 @@ namespace Laye.Compilation
 {
     public sealed partial class Parser
     {
-        class TokenListOperatorSplitAction
+        class OpSplitAction
         {
             private readonly List<Token> m_tokens;
             private readonly int m_index;
@@ -15,7 +15,7 @@ namespace Laye.Compilation
             private readonly string m_imageSplit;
             private readonly OperatorToken m_originalToken;
 
-            public TokenListOperatorSplitAction(List<Token> tokens, int where, string imageSplit)
+            public OpSplitAction(List<Token> tokens, int where, string imageSplit)
             {
                 m_tokens = tokens;
                 m_index = where;
@@ -50,6 +50,7 @@ namespace Laye.Compilation
         // NOTE(local): these require m_tokens to exist and don't check for it, will crash if not properly in initialized.
         private Token Current => m_tokens![m_tokenIndex];
         private Token? NextToken => m_tokenIndex + 1 >= m_tokens!.Count ? null : m_tokens[m_tokenIndex + 1];
+        private Token? PreviousToken => m_tokenIndex - 1 < 0 ? null : m_tokens![m_tokenIndex - 1];
 
         private (int, int) CurrentLocation => Current.Location;
 
@@ -64,11 +65,14 @@ namespace Laye.Compilation
         }
 
         private bool CheckOperatorStartsWith(string opImage) => Current is OperatorToken op && op.Image.StartsWith(opImage);
-        private TokenListOperatorSplitAction SplitOperatorSubImage(string opImage)
+        private OpSplitAction SplitOperatorSubImage(string opImage)
         {
             Debug.Assert(CheckOperatorStartsWith(opImage), "There wasn't a valid operator to subdivide");
 
-            var action = new TokenListOperatorSplitAction(m_tokens!, m_tokenIndex, opImage);
+            if (((OperatorToken)Current).Image == opImage)
+                return null;
+
+            var action = new OpSplitAction(m_tokens!, m_tokenIndex, opImage);
             action.Do();
 
             return action;

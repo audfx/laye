@@ -12,5 +12,8 @@ namespace Laye.Syntax.Abstract
         {
             Location = location;
         }
+
+        public abstract void Accept(AbstractSyntaxVisitor visitor);
+        public abstract T Accept<T>(AbstractSyntaxVisitor<T> visitor);
     }
 }

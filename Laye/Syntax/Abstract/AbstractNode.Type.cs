@@ -22,6 +22,9 @@ namespace Laye.Syntax.Abstract
         {
             BuiltInType = type;
         }
+
+        public override void Accept(AbstractSyntaxVisitor visitor) => visitor.Visit(this);
+        public override T Accept<T>(AbstractSyntaxVisitor<T> visitor) => visitor.Visit(this);
     }
 
     public class ANodePointerType : ANodeType
@@ -33,6 +36,9 @@ namespace Laye.Syntax.Abstract
         {
             Pointee = pointee;
         }
+
+        public override void Accept(AbstractSyntaxVisitor visitor) => visitor.Visit(this);
+        public override T Accept<T>(AbstractSyntaxVisitor<T> visitor) => visitor.Visit(this);
     }
 
     public class ANodeArrayType : ANodeType
@@ -46,6 +52,9 @@ namespace Laye.Syntax.Abstract
             ArrayLengthNodes = lengths;
             ElementType = elementType;
         }
+
+        public override void Accept(AbstractSyntaxVisitor visitor) => visitor.Visit(this);
+        public override T Accept<T>(AbstractSyntaxVisitor<T> visitor) => visitor.Visit(this);
     }
 
     public class ANodeListType : ANodeType
@@ -57,6 +66,9 @@ namespace Laye.Syntax.Abstract
         {
             ElementType = elementType;
         }
+
+        public override void Accept(AbstractSyntaxVisitor visitor) => visitor.Visit(this);
+        public override T Accept<T>(AbstractSyntaxVisitor<T> visitor) => visitor.Visit(this);
     }
 
     public class ANodeTupleType : ANodeType
@@ -70,5 +82,8 @@ namespace Laye.Syntax.Abstract
             ElementTypes = elementTypes;
             OptElementNames = optElementNames;
         }
+
+        public override void Accept(AbstractSyntaxVisitor visitor) => visitor.Visit(this);
+        public override T Accept<T>(AbstractSyntaxVisitor<T> visitor) => visitor.Visit(this);
     }
 }
