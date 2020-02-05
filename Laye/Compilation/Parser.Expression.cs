@@ -13,6 +13,8 @@ namespace Laye.Compilation
 
             ANodeExpression? result = null;
 
+            result = ParsePrimaryExpression(stack, out var _);
+
             actionsTaken = stack;
             return result;
         }
